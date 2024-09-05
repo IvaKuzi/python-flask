@@ -31,3 +31,24 @@ def greet():
     return f'\
         <h3>Hello, {name}!</h3>\
         <a href="javascript:history.back()">back<a>'
+
+@app.route("/log")
+def submissions_log():
+    content = '<h1>Submissions Log</h1>'
+    filename = "submissions.txt"
+    
+    try:
+        # Try to open and read the file
+        with open(filename, 'r') as file:
+            lines = file.readlines()  # Read each line as a list, keeping the '\n'
+            for line in lines:
+                print(line)    # Print each line, keeping the newline characters
+                content = content + f'<p>{line}</p>'
+    except FileNotFoundError:
+        # Handle the error if the file doesn't exist
+        content = content + f"The file '{filename}' does not exist."
+    
+    content = content + '<a href="javascript:history.back()">back<a>'
+    
+    print(content)
+    return content
