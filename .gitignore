@@ -9,6 +9,8 @@
 *.userosscache
 *.sln.docstates
 
+submissions.txt  # user submissions stored on disk
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
