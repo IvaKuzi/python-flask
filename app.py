@@ -6,7 +6,14 @@
 from flask import Flask, request, render_template
 from markupsafe import escape
 
+from flask_socketio import SocketIO
+import random
+import time
+
+
 app = Flask(__name__)
+socketio = SocketIO(app)
+
 
 @app.route("/")
 def home():
@@ -60,9 +67,29 @@ def submissions_log():
     print(content)
     return content
 
+
+@app.route('/random')
+def render_random():
+    return render_template('random.html')
+
+def send_random_number():
+    while True:
+        number = random.randint(1, 100)
+        socketio.emit('updateNumber', {'number': number})  # Emit the number to clients
+        time.sleep(5)  # Wait for 5 seconds before sending the next number
+
+@socketio.on('connect')
+def handle_connect():
+    socketio.start_background_task(send_random_number)  # Start background task on connect
+
+
 '''
+# page not found
 @app.route("/<name>")
 def hello(name):
     return f"<p>Page <b>{escape(name)}</b> not found!</p>"
 '''
+
+if __name__ == '__main__':
+    socketio.run(app, debug=True)
 

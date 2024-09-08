@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>VS Code Rocks!</title>
+    </head>
+    <body>
+
+        <h1>Real-time Random Number: <span id="dynamic-content">Waiting for update...</span></h1>
+        <p>This number will update dynamically in real-time without any page reloads.</p>
+
+        <a href="/">home</a>
+        <a href="/random">random number</a>
+        <a href="/about">about</a>
+        <a href="/contact">contact</a>
+        <a href="/log">log</a>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+        <script>
+            var socket = io();
+    
+            socket.on('updateNumber', function(data) {
+                document.getElementById('dynamic-content').innerText = data.number;
+            });
+        </script>
+        
+    </body>
+</html>
