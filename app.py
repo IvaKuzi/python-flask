@@ -3,6 +3,10 @@
 # Licensed under the MIT License. See LICENSE in the project root for license information.
 #-----------------------------------------------------------------------------------------
 
+# Import eventlet and perform monkey patching before any other import
+import eventlet
+eventlet.monkey_patch()
+
 from flask import Flask, request, render_template
 from markupsafe import escape
 
