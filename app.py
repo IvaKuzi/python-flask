@@ -72,15 +72,28 @@ def submissions_log():
 def render_random():
     return render_template('random.html')
 
+
 def send_random_number():
-    #while True:
-    number = random.randint(1, 100)
-    socketio.emit('updateNumber', {'number': number})  # Emit the number to clients
-    #time.sleep(5)  # Wait for 5 seconds before sending the next number
+    while True:
+        number = random.randint(1, 100)
+        socketio.emit('updateNumber', {'number': number})  # Emit the number to clients
+        time.sleep(5)  # Wait for 5 seconds before sending the next number
+
 
 @socketio.on('connect')
 def handle_connect():
-    socketio.start_background_task(send_random_number)  # Start background task on connect
+    print("Client connected")
+    # Start background task only once
+    global thread
+    try:
+        thread
+    except NameError:
+        thread = socketio.start_background_task(send_random_number)
+
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    print("Client disconnected")
 
 
 '''
