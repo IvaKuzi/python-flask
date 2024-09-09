@@ -72,7 +72,7 @@ def submissions_log():
 def render_random():
     return render_template('random.html')
 
-async def send_random_number():
+def send_random_number():
     while True:
         number = random.randint(1, 100)
         socketio.emit('updateNumber', {'number': number})  # Emit the number to clients
