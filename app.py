@@ -3,9 +3,12 @@
 # Licensed under the MIT License. See LICENSE in the project root for license information.
 #-----------------------------------------------------------------------------------------
 
-# Import eventlet and perform monkey patching before any other import
-import eventlet
-eventlet.monkey_patch()
+import os
+# Check if we're in a production environment
+is_production = os.getenv('FLASK_ENV') == 'production'
+if is_production:
+    import eventlet
+    eventlet.monkey_patch()
 
 from flask import Flask, request, render_template
 from markupsafe import escape
@@ -74,7 +77,7 @@ def submissions_log():
 
 @app.route('/random')
 def render_random():
-    return render_template('random.html')
+    return app.send_static_file('random.html')
 
 
 def send_random_number():
