@@ -8,8 +8,8 @@ from markupsafe import escape
 
 from flask_socketio import SocketIO
 import random
-#import time
-import asyncio
+import time
+#import asyncio
 
 
 app = Flask(__name__)
@@ -77,8 +77,8 @@ async def send_random_number():
     while True:
         number = random.randint(1, 100)
         socketio.emit('updateNumber', {'number': number})  # Emit the number to clients
-        #time.sleep(5)  # Wait for 5 seconds before sending the next number
-        await asyncio.sleep(5)  # Wait for 5 seconds before sending the next number
+        time.sleep(5)  # Wait for 5 seconds before sending the next number
+        #await asyncio.sleep(5)  # Wait for 5 seconds before sending the next number
 
 @socketio.on('connect')
 def handle_connect():
