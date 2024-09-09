@@ -74,10 +74,10 @@ def render_random():
     return render_template('random.html')
 
 async def send_random_number():
-    while True:
-        number = random.randint(1, 100)
-        socketio.emit('updateNumber', {'number': number})  # Emit the number to clients
-        time.sleep(5)  # Wait for 5 seconds before sending the next number
+    #while True:
+    number = random.randint(1, 100)
+    socketio.emit('updateNumber', {'number': number})  # Emit the number to clients
+        #time.sleep(5)  # Wait for 5 seconds before sending the next number
         #await asyncio.sleep(5)  # Wait for 5 seconds before sending the next number
 
 @socketio.on('connect')
