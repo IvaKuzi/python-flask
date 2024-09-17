@@ -3,12 +3,12 @@
 # Licensed under the MIT License. See LICENSE in the project root for license information.
 #-----------------------------------------------------------------------------------------
 
-import os
-# Check if we're in a production environment
-is_production = os.getenv('FLASK_ENV') == 'production'
-if is_production:
-    import eventlet
-    eventlet.monkey_patch()
+#import os
+## Check if we're in a production environment
+#is_production = os.getenv('FLASK_ENV') == 'production'
+#if is_production:
+import eventlet
+eventlet.monkey_patch()
 
 from flask import Flask, request, render_template
 from markupsafe import escape
